@@ -1,9 +1,7 @@
 import java.lang.reflect.Array;
 import java.net.SocketPermission;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class solution {
 
@@ -12,7 +10,17 @@ public class solution {
         int[] arr = {1};
         int[] arr1 = {1};
         //sol.rotate(arr,3);
-        System.out.println("Ans: " + sol.intersect(arr,arr1));
+        System.out.println(sol.generate(5));
+        }
+
+    public int reverseBits(int n){
+        int result = 0;
+        for(int i=0;i<32;i++){
+            result = result<<1;
+            if((n & 1)==1) result++;
+            n = n>>>1;
+        }
+        return result;
     }
 
     public double myPow(double x, int n) {
@@ -63,6 +71,7 @@ public class solution {
         for(int i=0;i<len;i++){
             out.remove(nums[i]);
         }
+        
         return out;
     }
 
@@ -428,6 +437,48 @@ public class solution {
         return ans;
     }
 
+    public boolean isValidpar(String st) {
+        char[] str = st.toCharArray();
+        StringBuilder stringBuilder = new StringBuilder();
+        char temp;
+        Stack<Character> s = new Stack<Character>();
+        for(int i =0 ; i<str.length;i++){
+            if(str[i]=='(')
+                s.push(str[i]);
+            else{  //means the its closing bracket
+                if(s.empty()) return false;
+                if(s.peek()=='(' && str[i]==')') s.pop();
+                else return false;
+            }
+        }
+        if(s.empty()) return true;
+        return false;
+    }
 
+
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> out = new ArrayList();
+
+        List<Integer> x = new ArrayList();
+        x.add(1);
+        out.add(x);
+
+        //since we need to proceed this n number of times
+        for(int i = 0;i<numRows-1;i++){
+
+            //creating the sublist
+            List<Integer> sublist = new ArrayList();
+            List<Integer> temp = out.get(i);
+            for(int j=0;j<temp.size()+1;j++){
+                if(j==0 || j==temp.size())
+                    sublist.add(1);
+                else{
+                    sublist.add((temp.get(j-1)+temp.get(j)));
+                }
+            }
+            out.add(sublist);
+        }
+        return out;
+    }
 
 }

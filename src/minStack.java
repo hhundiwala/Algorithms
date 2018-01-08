@@ -25,7 +25,7 @@ public class minStack {
         System.out.println();
         System.out.println(s.peek());
         System.out.println(min_stack.peek());
-        if(s.peek()  == min_stack.peek()){
+        if(s.peek().equals(min_stack.peek())){
             s.pop();
             min_stack.pop();
         }else{
@@ -38,6 +38,8 @@ public class minStack {
     }
 
     public int getMin() {
-        return min_stack.peek();
+        if(!min_stack.empty())
+            return min_stack.peek();
+        return 0;
     }
 }
